@@ -7,6 +7,8 @@ import Config from "../const/config"
 
 export class Wellcome extends Phaser.Scene {
 
+  private _tileBg : Phaser.GameObjects.TileSprite;
+
   constructor() {
     super({
       key: "wellcome",
@@ -15,28 +17,28 @@ export class Wellcome extends Phaser.Scene {
 
   create() : void {
 
-    var config = {
-        key: 'jump',
-        frames: this.anims.generateFrameNumbers('panda', null),
-        frameRate: 10,
-        repeat: -1
-    };
-    var anim = this.anims.create(config);
+    this._tileBg = this.add.tileSprite(0, 0, Config.width, Config.height, 'pattern').setOrigin(0,0);
 
-    let panda = this.add.sprite(Config.width/2, Config.height/2, 'panda');
+    let bg = this.add.sprite(Config.width/2, Config.height/2, 'bg');
+    bg.anims.play("bg@normal");
 
-    if(anim.frames.length){
-      panda.anims.play("jump");
-    }else{
-      console.error("not found frames", anim)
-    }
-   
-    this.add.text(Config.width/2, 30, "All ready!", { fontColor: 0xffffff, fontSize: 20, textAlign: 'center' }).setOrigin(.5, 0).setScale(.5);
+    let sonicBg = this.add.sprite(Config.width/2, Config.height/2 - 72, 'bg');
+    sonicBg.anims.play("bg@sonic");
 
+    let text = this.add.text(Config.width/2, Config.height/2 + 120, "Нажмите ENTER что бы начать", { color: "#ffffff"}).setOrigin(.5)
+  
+    this.add.tween({
+      targets: text,
+      delay: 60,
+      alpha: 0,
+      yoyo: true,
+      repeat: -1
+    })
+    
   }
 
   update() : void {
-
+    this._tileBg.tilePositionX += .3;
   }
 
 }
