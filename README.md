@@ -22,7 +22,7 @@ Run next commands in your terminal:
 
 | Command | Description |
 |---------|-------------|
-| `yarn` | Install dependencies and launch browser with examples.|
-| `yarn build` | Run build dist in build folder.|
-| `yarn start` | Launch browser to show the examples. <br> Press `Ctrl + c` to kill **http-server** process. |
+| `npm i` or `yarn` | Install dependencies and launch browser with examples.|
+| `npm run build` or `yarn build` | Run build dist in build folder.|
+| `npm start` or `yarn start` | Launch browser to show the examples. <br> Press `Ctrl + c` to kill **http-server** process. |
 =======
