@@ -10,6 +10,7 @@ Clone repo and go build games!!!
 1. [APP FOR MAKE TILED LEVELS](https://www.mapeditor.org/)
 1. [SPLIT TILES OF SPRITE](https://renderhjs.net/shoebox/)
 1. [MAKE GAME ATLAS](https://www.codeandweb.com/texturepacker)
+1. [PHASER 3 TYPESCRIPT EXAMPLES](https://github.com/digitsensitive/phaser3-typescript)
 
 ### Requirements
 

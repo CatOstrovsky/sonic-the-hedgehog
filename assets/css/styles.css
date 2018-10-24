@@ -1,0 +1,14 @@
+/**
+ * @author       CatOstrovsky <ska_live@mail.ru>
+ * @copyright    2018 web-panda
+ * @description  Basic page styles
+ * @license      CatOstrovsky
+ */
+body {
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1f1f1f;
+    overflow: hidden;
+}
