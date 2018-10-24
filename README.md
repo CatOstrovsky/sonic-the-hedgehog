@@ -1,7 +1,7 @@
 # Phaser 3 TypeScript starter template
 Clone repo and go build games!!!
 
-###Links to Phaser 3 and Games Development
+### Links to Phaser 3 and Games Development
 1. [DOCS](https://photonstorm.github.io/phaser3-docs/)
 1. [EXAMPLES](https://labs.phaser.io/)
 1. [FREE ASSETS #1](http://spritedatabase.net/)
