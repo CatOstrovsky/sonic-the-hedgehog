@@ -2,14 +2,14 @@
 Clone repo and go build games!!!
 
 ###Links to Phaser 3 and Games Development
-[DOCS](https://photonstorm.github.io/phaser3-docs/)
-[EXAMPLES](https://labs.phaser.io/)
-[FREE ASSETS #1](http://spritedatabase.net/)
-[FREE ASSETS #2](https://itch.io/)
-[FREE ASSETS #3](https://opengameart.org/)
-[APP FOR MAKE TILED LEVELS](https://www.mapeditor.org/)
-[SPLIT TILES OF SPRITE](https://renderhjs.net/shoebox/)
-[MAKE GAME ATLAS](https://www.codeandweb.com/texturepacker)
+1. [DOCS](https://photonstorm.github.io/phaser3-docs/)
+1. [EXAMPLES](https://labs.phaser.io/)
+1. [FREE ASSETS #1](http://spritedatabase.net/)
+1. [FREE ASSETS #2](https://itch.io/)
+1. [FREE ASSETS #3](https://opengameart.org/)
+1. [APP FOR MAKE TILED LEVELS](https://www.mapeditor.org/)
+1. [SPLIT TILES OF SPRITE](https://renderhjs.net/shoebox/)
+1. [MAKE GAME ATLAS](https://www.codeandweb.com/texturepacker)
 
 ### Requirements
 
