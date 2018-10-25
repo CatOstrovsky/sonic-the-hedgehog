@@ -8,6 +8,8 @@ import Config from "../const/config"
 export class Wellcome extends Phaser.Scene {
 
   private _tileBg : Phaser.GameObjects.TileSprite;
+  private _keys : any;
+  private _lock : boolean = false;
 
   constructor() {
     super({
@@ -34,11 +36,25 @@ export class Wellcome extends Phaser.Scene {
       yoyo: true,
       repeat: -1
     })
-    
-  }
+
+    this._keys = this.input.keyboard.addKeys('ENTER');
+ 
+ }
 
   update() : void {
     this._tileBg.tilePositionX += .3;
+    if(this._keys.ENTER.isDown && !this._lock) {
+      this._lock = true;
+
+      this.add.tween({
+        targets: this.cameras.main,
+        alpha: 0,
+        duration: 350,
+        onComplete: () => {
+          this.scene.start('game');
+        }
+      });
+    }
   }
 
 }

@@ -21,7 +21,16 @@ export class Boot extends Phaser.Scene {
     this.load.spritesheet('bg', 'assets/images/dist/bg.png', { frameWidth: 250, frameHeight: 147 });
 
     this.load.image('pattern', 'assets/images/dist/pattern.jpg');
-    
+
+    this.load.image('bg_1', 'assets/images/dist/bg/1.png');
+    this.load.image('bg_2', 'assets/images/dist/bg/2.png');
+     
+    this.load.image('tiles', 'assets/images/tiles.png')
+    this.load.tilemapTiledJSON({
+        key: 'map',
+        url: 'assets/images/tilemap.json'
+    })
+
     this.biuldLoader();
   }
 
@@ -59,6 +68,12 @@ export class Boot extends Phaser.Scene {
     // Normal animations
     this.anims.create({  key: 'sonic@normal',
       frames: this.anims.generateFrameNumbers('sonic', { start: 4, end: 10 }),
+      yoyo: true,
+      ...basic
+    });
+
+    this.anims.create({  key: 'sonic@fly',
+      frames: this.anims.generateFrameNumbers('sonic', { start: 87, end: 93 }),
       yoyo: true,
       ...basic
     });

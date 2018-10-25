@@ -26,7 +26,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, './'),
     publicPath: '/build/',
     host: '127.0.0.1',
-    port: 3000,
+    port: 9000,
     open: true
   },
   resolve: {

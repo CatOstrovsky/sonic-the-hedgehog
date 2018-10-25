@@ -16,7 +16,7 @@ const config = {
 		touch: true,
 		gamepad: false
 	},
-	backgroundColor: "#000000"
+	backgroundColor: "#82b6ff"
 }
 
 export default config;
