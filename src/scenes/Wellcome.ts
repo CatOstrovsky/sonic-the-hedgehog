@@ -1,6 +1,7 @@
 /**
  * @author       CatOstrovsky <ska_live@mail.ru>
  * @copyright    2018 web-panda
+ * @description  Wellcome game display
  * @license      CatOstrovsky
  */
 import Config from "../const/config"
@@ -11,12 +12,18 @@ export class Wellcome extends Phaser.Scene {
   private _keys : any;
   private _lock : boolean = false;
 
+  /**
+  * basic scene properties
+  */
   constructor() {
     super({
       key: "wellcome",
     });
   }
 
+  /**
+  * method called when all assets was loaded
+  */
   create() : void {
 
     this._tileBg = this.add.tileSprite(0, 0, Config.width, Config.height, 'pattern').setOrigin(0,0);
@@ -41,6 +48,9 @@ export class Wellcome extends Phaser.Scene {
  
  }
 
+  /**
+   * FPS updater
+   */
   update() : void {
     this._tileBg.tilePositionX += .3;
     if(this._keys.ENTER.isDown && !this._lock) {
@@ -51,7 +61,7 @@ export class Wellcome extends Phaser.Scene {
         alpha: 0,
         duration: 350,
         onComplete: () => {
-          this.scene.start('game');
+          this.scene.start('selectLevel');
         }
       });
     }

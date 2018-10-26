@@ -12,7 +12,7 @@ const config = {
 	parent: "game",
 	input: {
 		keyboard: true,
-		mouse: false,
+		mouse: true,
 		touch: true,
 		gamepad: false
 	},

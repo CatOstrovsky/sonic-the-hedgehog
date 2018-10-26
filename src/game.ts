@@ -12,11 +12,13 @@ import "phaser";
 import { Boot } from './scenes/Boot'
 import { Wellcome } from './scenes/Wellcome'
 import { Level } from './scenes/Level'
+import { SelectLevel } from './scenes/SelectLevel'
+import { GameOver } from './scenes/GameOver'
 import Config from './const/config'
 
 const config: GameConfig = {
   ...Config,
-  scene: [Boot, Wellcome, Level]
+  scene: [Boot, Wellcome, Level, SelectLevel, GameOver]
 };
 
 export class Game extends Phaser.Game {

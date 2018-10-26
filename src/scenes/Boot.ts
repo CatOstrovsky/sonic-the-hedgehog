@@ -13,6 +13,9 @@ export class Boot extends Phaser.Scene {
     });
   }
 
+  /**
+   * load all assets files
+   */
   preload() : void {
 
   	this.load.spritesheet('sonic', 'assets/images/dist/heroes/sonic.png', { frameWidth: 73, frameHeight: 55 });
@@ -21,19 +24,31 @@ export class Boot extends Phaser.Scene {
     this.load.spritesheet('bg', 'assets/images/dist/bg.png', { frameWidth: 250, frameHeight: 147 });
 
     this.load.image('pattern', 'assets/images/dist/pattern.jpg');
+    this.load.spritesheet('coin', 'assets/images/dist/coin.png', { frameWidth: 64, frameHeight: 64 });
 
     this.load.image('bg_1', 'assets/images/dist/bg/1.png');
     this.load.image('bg_2', 'assets/images/dist/bg/2.png');
+
+    this.load.image('bg_select_hero', 'assets/images/dist/bg/3.jpg');
      
     this.load.image('tiles', 'assets/images/tiles.png')
-    this.load.tilemapTiledJSON({
-        key: 'map',
-        url: 'assets/images/tilemap.json'
-    })
+    this.load.tilemapTiledJSON({ key: 'level_1', url: 'assets/images/tilemap.json' })
+
+    this.load.atlas('enemies', 'assets/images/dist/enemies.png', 'assets/images/dist/enemies.json')
+    this.load.atlas('elements', 'assets/images/dist/elements.png', 'assets/images/dist/elements.json')
+
+    this.load.audio('coin', ['assets/audio/coin.mp3']);
+    this.load.audio('kill', ['assets/audio/kill.mp3']);
+    this.load.audio('oops', ['assets/audio/oops.mp3']);
+
+    this.load.image('level_1@preview', 'assets/images/dist/levels/1.jpg')
 
     this.biuldLoader();
   }
 
+  /**
+   * build preloader progress line
+   */
   biuldLoader() : void {
 
     var progress = this.add.graphics();
@@ -52,10 +67,44 @@ export class Boot extends Phaser.Scene {
     });
   }
 
+  /**
+   * create enemies sprites
+   * @param {number}    num   type
+   * @param {any}       basic basic props
+   * @param {number =     0}           start start frame
+   * @param {number =     1}           end   end frame
+   */
+  makeEnemy(num:number, basic: any, start:number = 0, end:number = 1) : void {
+    this.anims.create({ key: `enemy_${num}@normal`, 
+    frames: this.anims.generateFrameNames('enemies', {
+      start: start, end: end, prefix: `${num}/sprite_`, suffix: '.png'
+    }), 
+    ...basic });
+  }
+
+  /**
+   * create all animations
+   */
   makeAnims() : void {
     let basic = { frameRate: 13, repeat: -1 };
+    // Enemies
+    this.makeEnemy(1, basic, 1, 5);
+    this.makeEnemy(2, basic, 1, 5);
+    this.makeEnemy(3, basic, 1, 4);
+    this.makeEnemy(4, basic, 1, 3);
+    this.makeEnemy(5, basic, 1, 6);
+    this.makeEnemy(6, basic, 2, 4);
+    this.makeEnemy(7, basic, 1, 3);
+    this.makeEnemy(8, basic, 2, 6);
 
-     // BG animations
+    // Coin animations
+    this.anims.create({  key: 'coin@normal',
+      frames: this.anims.generateFrameNumbers('coin', { start: 1, end: 16 }),
+      frameRate: 22,
+      repeat: -1
+    });
+
+    // BG animations
     this.anims.create({  key: 'bg@sonic',
       frames: this.anims.generateFrameNumbers('bg', { start: 1, end: 5 }),
       frameRate: 7
@@ -106,9 +155,11 @@ export class Boot extends Phaser.Scene {
       ...basic
     });
 
-
   }
 
+  /**
+   * method called when all assets was uploaded
+   */
   create() : void {
     this.makeAnims();
   	this.scene.start('wellcome');
