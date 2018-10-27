@@ -25,7 +25,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		scene.physics.add.collider(this, scene.layer, (player:Player, object: any) => {
 			if(object.properties.hasOwnProperty('danger') && object.properties['danger'] == true) {
 				this.scene.stats.removeLife();
-				player.setVelocityY(-650);
+				if(player.y < object.y) {
+					player.setVelocityY(-650);
+				}
+				
 			}
 		}) 
 

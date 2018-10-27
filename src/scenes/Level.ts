@@ -94,6 +94,8 @@ export class Level extends Phaser.Scene {
       this.enemies.addMultiple(enemies);
     }
 
+    spawn = this.drawFinish(spawn, finish, map);
+
     // Make user and statistics
     this.stats = new Stats(this);
     this.player = new Player(this, heroConfigHelper.name, spawn.x, spawn.y);
@@ -101,10 +103,9 @@ export class Level extends Phaser.Scene {
     this.cameras.main.startFollow(this.player, true)
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-    this.drawFinish(spawn, finish, map);
   }
 
-  drawFinish(spawn:any, finish:any, map:any): void {
+  drawFinish(spawn:any, finish:any, map:any): any {
 
     // Draw finish
     let helpLayout = map.getObjectLayer('level');
@@ -137,6 +138,8 @@ export class Level extends Phaser.Scene {
         }, 2500)
       }
     })
+
+    return spawn
   }
 
   /**
