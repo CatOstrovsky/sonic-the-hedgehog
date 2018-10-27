@@ -4,7 +4,9 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.9.0</string>
+        <string>4.7.0</string>
+        <key>fileName</key>
+        <string>/Users/konstantin/Documents/sonic-the-hedgehog/assets/images/elements.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -184,6 +186,7 @@
             <key type="filename">elements/checked.png</key>
             <key type="filename">elements/close.png</key>
             <key type="filename">elements/play.png</key>
+            <key type="filename">elements/star.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -221,6 +224,19 @@
                 <rect>32,32,64,64</rect>
                 <key>scale9Paddings</key>
                 <rect>32,32,64,64</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">elements/flag.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9Paddings</key>
+                <rect>16,16,32,32</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

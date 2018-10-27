@@ -24,6 +24,7 @@ export class Level extends Phaser.Scene {
   public stats : Stats
   public audio : { [s: string]: Phaser.Sound.BaseSound } = {}
   public levelConfig: {[key:string] : string|number }
+  public pause : boolean = false
 
   /**
    * basic scene properties
@@ -45,21 +46,28 @@ export class Level extends Phaser.Scene {
    * method called when all assets was loaded
    */
   create(props:{[key:string] : string|number }) : void {
+    this.pause = false
 
-    this.levelConfig = { level: "1", hero: 'sonic', ...props}
-
+    //Audio
     this.audio.coin = this.sound.add('coin');
     this.audio.kill = this.sound.add('kill');
     this.audio.oops = this.sound.add('oops');
 
+    // Default props
+    this.levelConfig = { level: "1", hero: 'sonic', ...props}
     let levelConfigHelper = Helper.levels[this.levelConfig.level];
     let heroConfigHelper = Helper.heroes[this.levelConfig.hero];
+    let spawn = { x:100, y:500 };
+    let finish = { x:200, y:490 };
 
+    // Parse tilemap
     const map = this.make.tilemap({ key: levelConfigHelper.tileName, tileWidth: 32, tileHeight: 32 });
      
+    // Background
     this._bg.push(this.add.tileSprite(0, map.heightInPixels - 325,map.widthInPixels, 225, 'bg_1').setOrigin(0));
     this._bg.push(this.add.tileSprite(0, map.heightInPixels - 225, map.widthInPixels, 225, 'bg_2').setOrigin(0));
-    
+
+    // Add tilemap elements
     const tileset = map.addTilesetImage("tileset","tiles");
     this.layer = map.createStaticLayer("stage", tileset, 0, 0);
     this.layer.setCollisionByProperty({ collide: true });
@@ -86,12 +94,49 @@ export class Level extends Phaser.Scene {
       this.enemies.addMultiple(enemies);
     }
 
+    // Make user and statistics
     this.stats = new Stats(this);
-    this.player = new Player(this, heroConfigHelper.name);
+    this.player = new Player(this, heroConfigHelper.name, spawn.x, spawn.y);
 
     this.cameras.main.startFollow(this.player, true)
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
+    this.drawFinish(spawn, finish, map);
+  }
+
+  drawFinish(spawn:any, finish:any, map:any): void {
+
+    // Draw finish
+    let helpLayout = map.getObjectLayer('level');
+    if(helpLayout && helpLayout.objects) {
+      for(let el of helpLayout.objects as any[]) {
+        if(el.type == "spawn") {
+          spawn.x = el.x;
+          spawn.y = el.y;
+        }
+
+        if(el.type == "finish") {
+          finish.x = el.x;
+          finish.y = el.y;
+        }
+
+      }
+    }
+    let finishEl = this.physics.add.image(finish.x, finish.y, 'elements', 'flag.png').setMaxVelocity(0)
+    this.physics.add.collider(finishEl, this.layer);
+    this.physics.add.collider(finishEl, this.player, () => {
+      if(!this.pause) {
+        this.pause = true;
+        Helper.makeSalut(this);
+        setTimeout(() => {
+          Helper.makeSalut(this);
+        }, 700)
+
+        setTimeout(() => {
+          this.scene.start('win', {...this.stats.getStats(), ...this.levelConfig })
+        }, 2500)
+      }
+    })
   }
 
   /**
@@ -99,9 +144,12 @@ export class Level extends Phaser.Scene {
    * deepth update all classes [player, enemy, ...]
    */
   update() : void {
-    this.player.update();
-    this.enemies.getChildren().map(enemy => enemy.update())
-    this.stats.update();
+    if(!this.pause) {
+      // live update user and enimies
+      this.player.update();
+      this.enemies.getChildren().map(enemy => enemy.update())
+      this.stats.update();
+    }
 
     this._bg[0].tilePositionX += .2;
     this._bg[1].tilePositionX -= .2;

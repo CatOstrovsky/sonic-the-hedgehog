@@ -18,30 +18,33 @@ export class Boot extends Phaser.Scene {
    */
   preload() : void {
 
-  	this.load.spritesheet('sonic', 'assets/images/dist/heroes/sonic.png', { frameWidth: 73, frameHeight: 55 });
-    this.load.spritesheet('sm', 'assets/images/dist/heroes/sm.png', { frameWidth: 116, frameHeight: 65 });
-    this.load.spritesheet('knukles', 'assets/images/dist/heroes/knukles.png', { frameWidth: 54, frameHeight: 54 });
-    this.load.spritesheet('bg', 'assets/images/dist/bg.png', { frameWidth: 250, frameHeight: 147 });
+  	this.load.spritesheet('sonic', 'assets/images/heroes/sonic.png', { frameWidth: 73, frameHeight: 55 });
+    this.load.spritesheet('sm', 'assets/images/heroes/sm.png', { frameWidth: 116, frameHeight: 65 });
+    this.load.spritesheet('knukles', 'assets/images/heroes/knukles.png', { frameWidth: 54, frameHeight: 54 });
+    this.load.spritesheet('bg', 'assets/images/bg.png', { frameWidth: 250, frameHeight: 147 });
 
-    this.load.image('pattern', 'assets/images/dist/pattern.jpg');
-    this.load.spritesheet('coin', 'assets/images/dist/coin.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.image('pattern', 'assets/images/pattern.jpg');
+    this.load.spritesheet('coin', 'assets/images/coin.png', { frameWidth: 64, frameHeight: 64 });
 
-    this.load.image('bg_1', 'assets/images/dist/bg/1.png');
-    this.load.image('bg_2', 'assets/images/dist/bg/2.png');
+    this.load.image('bg_1', 'assets/images/bg/1.png');
+    this.load.image('bg_2', 'assets/images/bg/2.png');
 
-    this.load.image('bg_select_hero', 'assets/images/dist/bg/3.jpg');
+    this.load.image('bg_select_hero', 'assets/images/bg/3.jpg');
      
-    this.load.image('tiles', 'assets/images/tiles.png')
-    this.load.tilemapTiledJSON({ key: 'level_1', url: 'assets/images/tilemap.json' })
+    this.load.image('tiles', 'assets/levels/1/tiles.png')
+    this.load.tilemapTiledJSON({ key: 'level_1', url: 'assets/levels/1/tilemap.json' })
+    this.load.tilemapTiledJSON({ key: 'level_2', url: 'assets/levels/2/tilemap.json' })
+    this.load.tilemapTiledJSON({ key: 'level_3', url: 'assets/levels/3/tilemap.json' })
+    this.load.tilemapTiledJSON({ key: 'level_4', url: 'assets/levels/4/tilemap.json' })
 
-    this.load.atlas('enemies', 'assets/images/dist/enemies.png', 'assets/images/dist/enemies.json')
-    this.load.atlas('elements', 'assets/images/dist/elements.png', 'assets/images/dist/elements.json')
+    this.load.atlas('enemies', 'assets/images/enemies.png', 'assets/images/enemies.json')
+    this.load.atlas('elements', 'assets/images/elements.png', 'assets/images/elements.json')
 
     this.load.audio('coin', ['assets/audio/coin.mp3']);
     this.load.audio('kill', ['assets/audio/kill.mp3']);
     this.load.audio('oops', ['assets/audio/oops.mp3']);
 
-    this.load.image('level_1@preview', 'assets/images/dist/levels/1.jpg')
+    this.load.image('level_1@preview', 'assets/levels/1/preview.jpg')
 
     this.biuldLoader();
   }

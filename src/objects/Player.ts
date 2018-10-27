@@ -6,6 +6,7 @@
 import { Level } from '../scenes/Level'
 import Coin from '../objects/Coin'
 import Enemy from '../objects/Enemy'
+import Helper from '../classes/Helper'
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
 	

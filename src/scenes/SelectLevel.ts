@@ -30,11 +30,11 @@ export class SelectLevel extends Phaser.Scene {
   create() : void {
     this._bg = this.add.tileSprite(0, 0, Config.width, Config.height, 'bg_select_hero').setOrigin(0);
 
-    this.add.text(50, 20, "Выберите персонажа", {fontSize: 23})
+    this.add.text(50, 20, "Выберите персонажа", {fontFamily:"Arial", fontSize: 23})
     this.drawHeroes()
     this.setActiveHero()
 
-    this.add.text(Config.width / 2, 20, "Выберите Уровень", {fontSize: 23})
+    this.add.text(Config.width / 2, 20, "Выберите Уровень", {fontFamily:"Arial", fontSize: 23})
     this.drawLevels()
     this.setActiveLevel()
 
@@ -75,7 +75,7 @@ export class SelectLevel extends Phaser.Scene {
 
       let levelEl = this.add.image(x, 100 + y , level.image).setOrigin(0, 0).setInteractive()
 
-      this.add.text(levelEl.x + (levelEl.displayWidth/2), levelEl.y - 20, level.name, {fontSize: 14}).setOrigin(.5);
+      this.add.text(levelEl.x + (levelEl.displayWidth/2), levelEl.y - 20, level.name, {fontFamily:"Arial", fontSize: 14}).setOrigin(.5);
 
       levelEl.on('pointerdown', () => {
         this.changeLevel(level.key)

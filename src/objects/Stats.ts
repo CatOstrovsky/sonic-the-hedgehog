@@ -77,6 +77,14 @@ export default class Stats {
 		}
 	}
 
+	public getStats() : object {
+		return {
+			coins: this._coins,
+			lifes: this._lifes,
+			killes: this._killes
+		}
+	} 
+
 	public update() : void {
 		this._updateCoins()
 		this._updateFlash()
