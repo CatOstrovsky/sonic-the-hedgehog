@@ -6,6 +6,12 @@ This is "Sonic the hedgehog" game. Based on Phaser 3 and TypeScript
 
 We need [Node.js](https://nodejs.org) to install and run scripts.
 
+### Assets was downloaded from
+1. [spritedatabase](http://spritedatabase.net/)
+1. [itch.io](https://itch.io)
+1. [shedsonfan.ucoz.ru](http://shedsonfan.ucoz.ru)
+1. [sonicgalaxy.net](http://www.sonicgalaxy.net)
+
 ## Install and run
 
 Run next commands in your terminal:
