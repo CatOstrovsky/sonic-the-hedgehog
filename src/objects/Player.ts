@@ -11,11 +11,15 @@ import Helper from '../classes/Helper'
 export default class Player extends Phaser.Physics.Arcade.Sprite {
 	
 	private _keys : Phaser.Input.Keyboard.CursorKeys
+	private _jumpLock: boolean = false
+	private _jumpTimer: number = 0;
 
 	constructor(public scene: Level, public type:string = "sonic", public x: number = 100, public y: number = 500) {
 		super(scene, x, y, type)
 		scene.physics.world.enable(this)
 		this.scene.add.existing(this)
+
+		this.setCollideWorldBounds(true)
 
 		this.anims.play(`${type}@normal`)
 		this.setSize(25,50)
@@ -26,7 +30,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			if(object.properties.hasOwnProperty('danger') && object.properties['danger'] == true) {
 				this.scene.stats.removeLife();
 				if(player.y < object.y) {
-					player.setVelocityY(-650);
+					player.setVelocityY(250);
+				}else{
+					player.setVelocityY(-250);
 				}
 				
 			}
@@ -53,16 +59,22 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		if(player.y+player.displayHeight/3 < enemy.y - enemy.displayHeight/2) {
 			this.scene.enemies.remove(enemy, true, true);
 			this.scene.stats.addKill(); /**STATS**/
-			player.setVelocityY(-450)
+			player.setVelocityY(-200)
 		}else{
 			this.scene.stats.removeLife(); /**STATS**/
 
-			enemy.setVelocityX(0);
+			let animX = 0;
 			if(player.x > enemy.x) {
-				player.setVelocity(350, -150)
+				animX = this.x + 70
 			}else{
-				player.setVelocity(-350, -150)
+				animX = this.x - 70
 			}
+
+			this.scene.tweens.add({
+				targets: this,
+				x: animX,
+				duration: 200
+			});
 		}
 	}
 
@@ -78,6 +90,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	    }
 
 	    if(this.body.velocity.x != 0 
+	      && this.body.velocity.y == 0
 	      && this.anims.currentAnim.key != `${this.type}@run`){
 	      this.anims.play(`${this.type}@run`);
 	    }else if(this.body.velocity.x == 0 
@@ -86,8 +99,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	      this.anims.play(`${this.type}@normal`);
 	    }
 
-	    if(this._keys.up.isDown && this.body.velocity.y == 0 ) {
-	      this.setVelocityY(-570);
+	    if(this._keys.up.isDown && !this._jumpLock) {
+	      this._jumpTimer++;
+	      this.body.velocity.y -= 70;
+	      if(this._jumpTimer > 8 ) this._jumpLock = true;
+	    }else if(!this._keys.up.isDown && this._jumpTimer && this.body.velocity.y != 0) {
+	    	this._jumpLock = true
+	    }else if(this._jumpTimer && this.body.velocity.y == 0) {
+	    	this._jumpTimer = 0
+	    	this._jumpLock = false
 	    }
 
 	    if(this.body.velocity.y != 0

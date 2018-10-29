@@ -25,6 +25,7 @@ export class Level extends Phaser.Scene {
   public audio : { [s: string]: Phaser.Sound.BaseSound } = {}
   public levelConfig: {[key:string] : string|number }
   public pause : boolean = false
+  private _finish: Phaser.Physics.Arcade.Image;
 
   /**
    * basic scene properties
@@ -67,13 +68,15 @@ export class Level extends Phaser.Scene {
     this._bg.push(this.add.tileSprite(0, map.heightInPixels - 325,map.widthInPixels, 225, 'bg_1').setOrigin(0));
     this._bg.push(this.add.tileSprite(0, map.heightInPixels - 225, map.widthInPixels, 225, 'bg_2').setOrigin(0));
 
+    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
     // Add tilemap elements
     const tileset = map.addTilesetImage("tileset","tiles");
     this.layer = map.createStaticLayer("stage", tileset, 0, 0);
     this.layer.setCollisionByProperty({ collide: true });
 
     // add coins group
-    this.coins = this.physics.add.group({collideWorldBounds: false});
+    this.coins = this.physics.add.group({collideWorldBounds: true});
 
     let coinsLayout = map.getObjectLayer('coins');
     if(coinsLayout && coinsLayout.objects) {
@@ -84,7 +87,7 @@ export class Level extends Phaser.Scene {
     }
 
     // add enemies group
-    this.enemies = this.physics.add.group({collideWorldBounds: false});
+    this.enemies = this.physics.add.group({collideWorldBounds: true});
 
     let enemiesLayout = map.getObjectLayer('enemies');
     if(enemiesLayout && enemiesLayout.objects) {
@@ -103,8 +106,32 @@ export class Level extends Phaser.Scene {
     this.cameras.main.startFollow(this.player, true)
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
+    this.physics.add.collider(this._finish, this.layer);
+    this.physics.add.collider(this._finish, this.player, () => this.onFinish())
+
   }
 
+  onFinish() {
+    if(!this.pause) {
+      this.pause = true;
+      Helper.makeSalut(this);
+      setTimeout(() => {
+        Helper.makeSalut(this);
+      }, 700)
+
+      setTimeout(() => {
+        this.scene.start('win', {...this.stats.getStats(), ...this.levelConfig })
+      }, 2500)
+    }
+  }
+
+  /**
+   * draw finish element and make spawn position
+   * @param  {any} spawn  
+   * @param  {any} finish 
+   * @param  {any} map    
+   * @return {any} object {x,y} - spawn
+   */
   drawFinish(spawn:any, finish:any, map:any): any {
 
     // Draw finish
@@ -123,22 +150,7 @@ export class Level extends Phaser.Scene {
 
       }
     }
-    let finishEl = this.physics.add.image(finish.x, finish.y, 'elements', 'flag.png').setMaxVelocity(0)
-    this.physics.add.collider(finishEl, this.layer);
-    this.physics.add.collider(finishEl, this.player, () => {
-      if(!this.pause) {
-        this.pause = true;
-        Helper.makeSalut(this);
-        setTimeout(() => {
-          Helper.makeSalut(this);
-        }, 700)
-
-        setTimeout(() => {
-          this.scene.start('win', {...this.stats.getStats(), ...this.levelConfig })
-        }, 2500)
-      }
-    })
-
+    this._finish = this.physics.add.image(finish.x, finish.y, 'elements', 'flag.png').setMaxVelocity(0)
     return spawn
   }
 
