@@ -2,6 +2,8 @@
 
 This is "Sonic the hedgehog" game. Based on Phaser 3 and TypeScript
 
+[DEMO HERE!!!](https://demo.web-panda.ru/sonic-the-hedgehog)
+
 ### Requirements
 
 We need [Node.js](https://nodejs.org) to install and run scripts.
