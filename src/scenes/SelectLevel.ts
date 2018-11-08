@@ -13,7 +13,9 @@ export class SelectLevel extends Phaser.Scene {
   private _level: any = Helper.levels[1]
   private _heroes: any[] = []
   private _levels: any[] = []
+  private _keys : any;
   private _bg: Phaser.GameObjects.TileSprite
+  public audio : { [s: string]: Phaser.Sound.BaseSound } = {}
 
   /**
    * basic scene properties
@@ -28,6 +30,10 @@ export class SelectLevel extends Phaser.Scene {
    * method called when all assets was loaded
    */
   create() : void {
+
+    this.audio.level = this.sound.add('level');
+    this.audio.level.play()
+
     this._bg = this.add.tileSprite(0, 0, Config.width, Config.height, 'bg_select_hero').setOrigin(0);
 
     this.add.text(50, 20, "Выберите персонажа", {fontFamily:"Arial", fontSize: 23})
@@ -50,8 +56,11 @@ export class SelectLevel extends Phaser.Scene {
     })
 
     play.on('pointerdown', () => {
+      this.audio.level.pause()
       this.scene.start('level', {level: this._level.key, hero: this._hero.key})
     })
+
+    this._keys = this.input.keyboard.addKeys('ENTER');
   }
 
   /**
@@ -156,6 +165,10 @@ export class SelectLevel extends Phaser.Scene {
    * deepth update all classes [player, enemy, ...]
    */
   update() : void {
+    if(this._keys.ENTER.isDown) {
+      this.audio.level.pause()
+      this.scene.start('level', {level: this._level.key, hero: this._hero.key})
+    }
     this._bg.tilePositionX += 3;
   }
 

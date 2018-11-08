@@ -10,7 +10,8 @@ export class Wellcome extends Phaser.Scene {
 
   private _tileBg : Phaser.GameObjects.TileSprite;
   private _keys : any;
-  private _lock : boolean = false;
+  private _lock : boolean = false
+  public audio : { [s: string]: Phaser.Sound.BaseSound } = {}
 
   /**
   * basic scene properties
@@ -25,6 +26,9 @@ export class Wellcome extends Phaser.Scene {
   * method called when all assets was loaded
   */
   create() : void {
+
+    this.audio.home = this.sound.add('home');
+    this.audio.home.play();
 
     this._tileBg = this.add.tileSprite(0, 0, Config.width, Config.height, 'pattern').setOrigin(0,0);
 
@@ -61,6 +65,7 @@ export class Wellcome extends Phaser.Scene {
         alpha: 0,
         duration: 350,
         onComplete: () => {
+          this.audio.home.pause();
           this.scene.start('selectLevel');
         }
       });

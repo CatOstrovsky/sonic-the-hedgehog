@@ -10,6 +10,7 @@ export class Win extends Phaser.Scene {
 
   private props: any;
   private hero: Phaser.GameObjects.Sprite
+  public audio : { [s: string]: Phaser.Sound.BaseSound } = {}
 
   /**
    * basic scene properties
@@ -24,6 +25,9 @@ export class Win extends Phaser.Scene {
    * method called when all assets was loaded
    */
   create(props: any) : void {
+    this.audio.end = this.sound.add('end');
+    this.audio.end.play();
+
     this.hero = this.add.sprite(-50, Config.height/2, props.hero);
     this.hero.anims.play(`${props.hero}@run`);
     
@@ -103,7 +107,10 @@ export class Win extends Phaser.Scene {
         targets: this.cameras.main,
         duration: 700,
         alpha: 0,
-        onComplete: () => this.scene.start('selectLevel')
+        onComplete: () => { 
+          this.scene.start('selectLevel')
+          this.audio.end.pause()
+        }
       })
 
     })

@@ -53,6 +53,9 @@ export class Level extends Phaser.Scene {
     this.audio.coin = this.sound.add('coin');
     this.audio.kill = this.sound.add('kill');
     this.audio.oops = this.sound.add('oops');
+    this.audio.game = this.sound.add('game');
+
+    this.audio.game.play();
 
     // Default props
     this.levelConfig = { level: "1", hero: 'sonic', ...props}
@@ -120,6 +123,7 @@ export class Level extends Phaser.Scene {
       }, 700)
 
       setTimeout(() => {
+        this.audio.game.pause();
         this.scene.start('win', {...this.stats.getStats(), ...this.levelConfig })
       }, 2500)
     }

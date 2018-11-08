@@ -44,6 +44,12 @@ export class Boot extends Phaser.Scene {
     this.load.audio('kill', ['assets/audio/kill.mp3']);
     this.load.audio('oops', ['assets/audio/oops.mp3']);
 
+    this.load.audio('game', ['assets/audio/game.mp3']);
+    this.load.audio('home', ['assets/audio/home.mp3']);
+    this.load.audio('death', ['assets/audio/death.mp3']);
+    this.load.audio('end', ['assets/audio/end.mp3']);
+    this.load.audio('level', ['assets/audio/level.mp3']);
+
     this.load.image('level_1@preview', 'assets/levels/1/preview.jpg')
 
     this.biuldLoader();

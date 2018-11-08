@@ -72,8 +72,10 @@ export default class Stats {
 			/**
 			 * Game over
 			 */
-			if(this._lifes <= 0)
+			if(this._lifes <= 0) {
+				this.scene.audio.game.pause()
 				this.scene.scene.start('gameOver', this.scene.levelConfig)
+			}
 		}
 	}
 

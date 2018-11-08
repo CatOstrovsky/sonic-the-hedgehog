@@ -8,6 +8,8 @@ import Config from "../const/config"
 
 export class GameOver extends Phaser.Scene {
 
+  public audio : { [s: string]: Phaser.Sound.BaseSound } = {}
+
   /**
    * basic scene properties
    */
@@ -21,6 +23,10 @@ export class GameOver extends Phaser.Scene {
    * method called when all assets was loaded
    */
   create(props: any) : void {
+
+    this.audio.death = this.sound.add('death');
+    this.audio.death.play();
+
     let graphic = this.add.graphics();
     graphic.fillStyle(0x000000, 1)
     graphic.fillRect(0, 0, Config.width, Config.height)
@@ -48,10 +54,12 @@ export class GameOver extends Phaser.Scene {
 
     this.add.image(200, Config.height - 150, 'elements', 'close.png').setInteractive()
     .on('pointerdown', () => {
+      this.audio.death.pause()
       this.scene.start('selectLevel')
     })
     this.add.image(Config.width - 200, Config.height - 150, 'elements', 'checked.png').setInteractive()
     .on('pointerdown', () => {
+      this.audio.death.pause()
       this.scene.start('level', props)
     })
 
