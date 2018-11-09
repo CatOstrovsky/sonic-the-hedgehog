@@ -43,7 +43,7 @@ export class Win extends Phaser.Scene {
   }
 
   addHeaderText() {
-    let text = this.add.text(Config.width/2, -150, "ПОБЕЕЕЕЕДА!", {fontSize: 35, fontFamily: "Arial"}).setOrigin(.5);
+    let text = this.add.text(Config.width/2, -150, "Уровень пройден!", {fontSize: 35, fontFamily: "Arial"}).setOrigin(.5);
     this.tweens.add({
       targets: text,
       duration: 700,
@@ -60,11 +60,28 @@ export class Win extends Phaser.Scene {
       killes: this.add.text(20, 160, `${this.props.killes} монстров убито`, {fontSize: 16, fontFamily: "Arial"}).setOrigin(0, .5).setAlpha(0)
     };
 
+    let total:any = window.localStorage.getItem('totalScore');
+    if(total) total = JSON.parse(total);
+    if(!total){ 
+      total = {
+        coins: 0,
+        lifes: 0,
+        killes: 0
+      };
+      window.localStorage.setItem('totalScore', JSON.stringify(total))
+    }
+    
+    total.coins += this.props.coins
+    total.lifes += this.props.lifes
+    total.killes += this.props.killes
+
+    window.localStorage.setItem('totalScore', JSON.stringify(total))
+
     let right = {
       text: this.add.text(Config.width - 200, 90, "В общей сумме у Вас", {fontSize: 16, fontFamily: "Arial"}).setOrigin(0, .5).setAlpha(0),
-      coins: this.add.text(Config.width - 200, 120, `${this.props.coins} монет собрано`, {fontSize: 16, fontFamily: "Arial"}).setOrigin(0, .5).setAlpha(0),
-      lifes: this.add.text(Config.width - 200, 140, `${this.props.lifes} жизни осталось`, {fontSize: 16, fontFamily: "Arial"}).setOrigin(0, .5).setAlpha(0),
-      killes: this.add.text(Config.width - 200, 160, `${this.props.killes} монстров убито`, {fontSize: 16, fontFamily: "Arial"}).setOrigin(0, .5).setAlpha(0)
+      coins: this.add.text(Config.width - 200, 120, `${total.coins} монет собрано`, {fontSize: 16, fontFamily: "Arial"}).setOrigin(0, .5).setAlpha(0),
+      lifes: this.add.text(Config.width - 200, 140, `${total.lifes} жизни осталось`, {fontSize: 16, fontFamily: "Arial"}).setOrigin(0, .5).setAlpha(0),
+      killes: this.add.text(Config.width - 200, 160, `${total.killes} монстров убито`, {fontSize: 16, fontFamily: "Arial"}).setOrigin(0, .5).setAlpha(0)
     };
 
     this.tweens.add({

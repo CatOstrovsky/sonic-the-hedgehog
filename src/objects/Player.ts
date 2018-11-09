@@ -34,7 +34,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 				}else{
 					player.setVelocityY(-250);
 				}
-				
+			}
+			if(object.properties.hasOwnProperty('collide') && object.properties['collide'] == true) {
+				if(player.y < object.pixelY) {
+					this.jumpUnlock();
+				}
 			}
 		}) 
 
@@ -48,6 +52,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		(player: Player, enemy: Enemy) => {
 			this.colliderEnemy(player, enemy);
 		})
+
+	}
+
+	public jumpUnlock() {
+		if(this._jumpLock) {
+			this._jumpLock = false;
+			this._jumpTimer = 0;
+		}
 	}
 
 	private colliderCoins(player: Player, coin: Coin) {
@@ -105,9 +117,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	      if(this._jumpTimer > 8 ) this._jumpLock = true;
 	    }else if(!this._keys.up.isDown && this._jumpTimer && this.body.velocity.y != 0) {
 	    	this._jumpLock = true
-	    }else if(this._jumpTimer && this.body.velocity.y == 0) {
-	    	this._jumpTimer = 0
-	    	this._jumpLock = false
 	    }
 
 	    if(this.body.velocity.y != 0
