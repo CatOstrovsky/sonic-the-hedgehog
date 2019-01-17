@@ -4,6 +4,8 @@ This is "Sonic the hedgehog" game. Based on Phaser 3 and TypeScript
 
 [DEMO HERE!!!](https://demo.web-panda.ru/sonic-the-hedgehog)
 
+![QR](https://demo.web-panda.ru/qr/sonicx200.png)
+
 ![Game Screenshot](https://demo.web-panda.ru/screenshots/sonic_1.JPG)
 
 ### Requirements
