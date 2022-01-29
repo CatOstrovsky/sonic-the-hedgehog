@@ -2,11 +2,11 @@
 
 This is "Sonic the hedgehog" game. Based on Phaser 3 and TypeScript
 
-[DEMO HERE!!!](https://demo.web-panda.ru/sonic-the-hedgehog)
+[DEMO HERE!!!](http://catostrovsky.ru/demo/sonic-the-hedgehog)
 
-![QR](https://demo.web-panda.ru/qr/sonicx200.png)
+<img src="https://user-images.githubusercontent.com/13501355/151675225-35fac703-63c6-451e-834a-10ec64f73f9f.png" width="200px"/>
 
-![Game Screenshot](https://demo.web-panda.ru/screenshots/sonic_1.JPG)
+![sonic_1](https://user-images.githubusercontent.com/13501355/151675232-0fdd2abf-fcdd-4147-9565-6d9491009c6c.JPG)
 
 ### Requirements
 
@@ -18,7 +18,7 @@ We need [Node.js](https://nodejs.org) to install and run scripts.
 1. [shedsonfan.ucoz.ru](http://shedsonfan.ucoz.ru)
 1. [sonicgalaxy.net](http://www.sonicgalaxy.net)
 
-![Game Screenshot](https://demo.web-panda.ru/screenshots/sonic_2.JPG)
+![sonic_2](https://user-images.githubusercontent.com/13501355/151675237-24459057-ab4c-462f-84f9-d917552309f6.JPG)
 
 ## Install and run
 
@@ -31,4 +31,4 @@ Run next commands in your terminal:
 | `npm start` | Launch browser to show the examples. <br> Press `Ctrl + c` to kill **http-server** process. |
 =======
 
-![Game Screenshot](https://demo.web-panda.ru/screenshots/sonic_3.JPG)
+![sonic_3](https://user-images.githubusercontent.com/13501355/151675248-9bc793fc-213e-46a0-a5a6-553d4ca28693.JPG)
